@@ -98,7 +98,6 @@
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('/ckeditor/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 <!-- include summernote css/js -->
 {{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">

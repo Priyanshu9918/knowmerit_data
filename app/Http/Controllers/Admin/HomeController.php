@@ -21,23 +21,23 @@ use App\Models\WriteReview;
 class HomeController extends Controller
 {
     public function index(){
-    $users = User::count();
-    $Activeusers = User::where('status',1)->count();
-    $Inactiveusers = User::where('status',0)->count();
-    $teacher = User::where('user_type',2)->count();
-    $ActiveTeacher = User::where('user_type',2)->where('status',1)->count();
-    $InactiveTeacher = User::where('user_type',2)->where('status',0)->count();
-    $student = User::where('user_type',3)->count();
-    $Activestudent = User::where('user_type',3)->where('status',1)->count();
-    $Inactivestudent = User::where('user_type',3)->where('status',0)->count();
-    $category = Category::where('parent',0)->where('status',1)->count();
-    $Subcategory = Category::where('parent','!=',0)->where('status',1)->count();
-    $BookSession = BookSession::where('is_cancelled',0)->count();
-    $BookSessionCancel = BookSession::where('is_cancelled',1)->count();
-    $blog = Blog::where('status',1)->count();
-    $contact = Enquiry::where('status',1)->count();
-    $feedback = WriteReview::count();
-    return view('admin.dashboard',compact('category','teacher','student','BookSession','Subcategory','blog','users','contact','InactiveTeacher','ActiveTeacher','Activestudent','Inactivestudent','feedback','BookSessionCancel','Activeusers','Inactiveusers'));
+    // $users = User::count();
+    // $Activeusers = User::where('status',1)->count();
+    // $Inactiveusers = User::where('status',0)->count();
+    // $teacher = User::where('user_type',2)->count();
+    // $ActiveTeacher = User::where('user_type',2)->where('status',1)->count();
+    // $InactiveTeacher = User::where('user_type',2)->where('status',0)->count();
+    // $student = User::where('user_type',3)->count();
+    // $Activestudent = User::where('user_type',3)->where('status',1)->count();
+    // $Inactivestudent = User::where('user_type',3)->where('status',0)->count();
+    // $category = Category::where('parent',0)->where('status',1)->count();
+    // $Subcategory = Category::where('parent','!=',0)->where('status',1)->count();
+    // $BookSession = BookSession::where('is_cancelled',0)->count();
+    // $BookSessionCancel = BookSession::where('is_cancelled',1)->count();
+    // $blog = Blog::where('status',1)->count();
+    // $contact = Enquiry::where('status',1)->count();
+    // $feedback = WriteReview::count();
+    return view('admin.dashboard');
 
     }
 }

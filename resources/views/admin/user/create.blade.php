@@ -169,26 +169,7 @@
                     return false;
                 });
 
-                $('#tutor_email').on('blur', function() {
-                    var email = $(this).val();
-                    if (email) {
-                        $.ajax({
-                            url: "{{ route('check-email') }}",
-                            method: 'POST',
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                email: email
-                            },
-                            success: function(response) {
-                                if (response.exists) {
-                                    $('#error-tutor_email').html('Email already exists.');
-                                } else {
-                                    $('#error-tutor_email').html('');
-                                }
-                            }
-                        });
-                    }
-                });
+
                 $(document).on('submit', 'form#createFrm', function(event) {
                     event.preventDefault();
                     //clearing the error msg
