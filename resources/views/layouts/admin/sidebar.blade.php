@@ -140,12 +140,18 @@
                     <span class="menu-title">Role Management</span>
                 </a>
             </li>
-            <li class="nav-item {{Request::segment(2) == 'manage-page' ? 'active' : ''  }}">
+            <li class="nav-item {{Request::segment(2) == 'cms' ? 'active' : ''  }}">
+                <a class="nav-link" href="{{ route('admin.cms') }}">
+                    <i class="fa fa-info-circle menu-icon"></i>
+                    <span class="menu-title">CMS Manage</span>
+                </a>
+            </li>
+            <!-- <li class="nav-item {{Request::segment(2) == 'manage-page' ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('admin.manage-page') }}">
                     <i class="fa fa-info-circle menu-icon"></i>
                     <span class="menu-title">Page Manage</span>
                 </a>
-            </li>
+            </li> -->
     </ul>
     @endif
 </nav>

@@ -35,7 +35,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="form-label"><b>Description</b></label>
-                                        <textarea class="form-control " id="mysummernote" id="description" name="description" ></textarea>
+                                        <textarea class="form-control " id="summernote" id="description" name="description" ></textarea>
                                         <p style="margin-bottom: 2px;" class="text-danger error_container"
                                             id="error-description"></p>
                                     </div>
@@ -129,10 +129,19 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
             // $('#mysummernote').summernote({
             //     height: 150
             // });
-            CKEDITOR.replace('mysummernote', {
-                extraPlugins: 'youtube,mathjax,codesnippet,html5audio,html5video',
-                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML', // Add the MathJax plugin
-                removeButtons: 'PasteFromWord'
+            $('textarea#summernote').summernote({
+                tabsize: 2,
+                height: 100,
+                toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'italic', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'hr']],
+                        ['help', ['help']]
+                ],
             });
         });
 

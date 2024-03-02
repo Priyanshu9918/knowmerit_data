@@ -6,39 +6,52 @@
             <div class="col-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Category</h4>
-                        <form action="{{ route('admin.category.edit',['id'=>base64_encode($category->id)]) }}" method="POST" id="editFrm" enctype="multipart/form-data">
+                        <h4 class="card-title">CMS</h4>
+                        <form action="{{ route('admin.cms.edit',['id'=>base64_encode($manage_pages->id)]) }}" method="POST" id="editFrm" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row gx-3">
+
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="form-label">Category name</label>
-                                            <input class="form-control" type="text" name="category_name" value="{{$category->name}}" placeholder="Enter Category name"/>
-                                            <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-category_name"></p>
+                                            <label for="formFile" class="form-label"><b>Title</b></label>
+                                            <input class="form-control" name="name" type="text" id="name" value="{{$manage_pages->title}}">
+                                            <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                id="error-name"></p>
                                         </div>
                                     </div>
+                                    {{-- <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="formFile" class="form-label"><b>Slug</b></label>
+                                            <input class="form-control" name="slug" type="text" id="slug" value="{{$manage_pages->slug}}">
+                                            <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                id="error-slug"></p>
+                                        </div>
+                                    </div> --}}
                                     <!-- <div class="col-sm-6">
-                                        <label class="form-label">Select parent category</label>
-                                        <select class="form-control" name="parent_category">
-                                            <option value="">Select</option>
-                                            @if(count($parent_categories)>0)
-                                                @foreach ($parent_categories as $cat)
-                                                    <option value="{{$cat->id}}" @if($cat->id==$category->parent) selected @endif>{{$cat->name}}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-parent_category"></p>
+                                        <div class="form-group">
+                                            <label for="formFile" class="form-label"><b>Image</b></label>
+                                            <input class="form-control" name="image" type="file" id="formFile"
+                                                accept="image/*">
+                                                @if ($manage_pages->image)
+                                                <img class="mt-2" src="{{ asset('uploads/managepage/' . $manage_pages->image) }}"
+                                                    width="100px" height="70px" alt="img">
+                                                  @endif
+                                            <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                id="error-image"></p>
+                                        </div>
                                     </div> -->
-                                </div>
-                                <div class="row gx-3">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="formFile" class="form-label">Choose category icon</label>
-                                            <input class="form-control" name="icon" type="file" id="formFile" accept="image/*">
-                                            <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-icon"></p>
+                                            <div class="form-group">
+                                                <label class="form-label"><b>Description</b></label>
+                                                <textarea id="summernote" class="form-control"  id="description" name="description">{!! $manage_pages->description !!}</textarea>
+                                                <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                    id="error-description"></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <button type="submit" class="btn btn-primary submit mt-2">Update</button>
                             </form>
                 </div>
@@ -86,7 +99,7 @@
                         if (response.success == true) {
 
                             //notify
-                            toastr.success("Category Updated Successfully");
+                            toastr.success("Page Updated Successfully");
                             // Swal.fire({
                             // position: 'top-end',
                             // icon: 'success',
@@ -96,7 +109,7 @@
                             // })
                             // redirect to google after 5 seconds
                             window.setTimeout(function() {
-                                window.location = "{{ url('/')}}" + "/admin/category";
+                                window.location = "{{ url('/')}}" + "/admin/cms";
                             }, 2000);
 
                         }
@@ -119,9 +132,24 @@
                 event.stopImmediatePropagation();
                 return false;
             });
+            // $('#mysummernote').summernote({
+            //     height: 150
+            // });
+            $('textarea#summernote').summernote({
+                tabsize: 2,
+                height: 100,
+                toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'italic', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'hr']],
+                        ['help', ['help']]
+                ],
+            });
         });
-        $(document).ready(function() {
-            $('.summernote').summernote();
-        });
+
     </script>
     @endpush

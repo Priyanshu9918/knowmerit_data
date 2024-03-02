@@ -74,10 +74,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['Admin']],
     //managepage
     Route::get('/manage-page', [App\Http\Controllers\Admin\ManagePageController::class, 'index'])->name('manage-page');
 
-    Route::match(['get', 'post'], '/manage-page/create', [App\Http\Controllers\Admin\ManagePageController::class, 'create'])->name('manage-page.create');
+    Route::match(['get', 'post'], '/manage-page/create', [App\Http\Controllers\Admin\ManagePageController::class,'create'])->name('manage-page.create');
 
     Route::match(['get', 'post'], '/manage-page/edit/{id}', [App\Http\Controllers\Admin\ManagePageController::class, 'edit'])->name('manage-page.edit');
 
+    //cms
+    Route::get('/cms', [App\Http\Controllers\Admin\CmsController::class, 'index'])->name('cms');
+    Route::match(['get', 'post'], '/cms/create', [App\Http\Controllers\Admin\CmsController::class,'create'])->name('cms.create');
+    Route::match(['get', 'post'], '/cms/edit/{id}', [App\Http\Controllers\Admin\CmsController::class, 'edit'])->name('cms.edit');
 });
 
 // Route::get('{slug}', [App\Http\Controllers\CommonController::class, 'fetch']);

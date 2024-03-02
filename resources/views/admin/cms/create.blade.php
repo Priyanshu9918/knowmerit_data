@@ -6,38 +6,40 @@
             <div class="col-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Category</h4>
-                        <form action="{{ route('admin.category.create') }}" method="POST" id="createFrm" enctype="multipart/form-data">
+                        <h4 class="card-title">CMS Manage</h4>
+                        <form action="{{ route('admin.cms.create') }}" method="POST" id="createFrm" enctype="multipart/form-data">
                             @csrf
+
                             <div class="row gx-3">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label class="form-label">Category name</label>
-                                        <input class="form-control" type="text" name="category_name" placeholder="Enter Category name" />
-                                        <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-category_name"></p>
+                                        <label class="form-label"><b>Title</b></label>
+                                        <input class="form-control" type="text" name="name" placeholder="Enter Title" />
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-name"></p>
                                     </div>
                                 </div>
+                                {{-- <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label"><b>Slug</b></label>
+                                        <input class="form-control" type="text" name="slug" placeholder="Enter Slug name" />
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-slug"></p>
+                                    </div>
+                                </div> --}}
                                 <!-- <div class="col-sm-6">
-                                    <label class="form-label">Select parent category</label>
-                                    <select class="form-control" name="parent_category" >
-                                        <option value="">Select</option>
-                                        @if(count($parent_categories)>0)
-                                        @foreach ($parent_categories as $cat)
-                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                    <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-parent_category"></p>
+                                    <div class="form-group">
+                                        <label for="formFile" class="form-label"><b>Choose Image</b></label>
+                                        <input class="form-control" name="image" type="file" id="formFile" accept="image/*" multiple>
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-image"></p>
+                                    </div>
                                 </div> -->
-                            </div>
-                            <div class="row gx-3">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="formFile" class="form-label">Choose category icon</label>
-                                        <input class="form-control" name="icon" type="file" id="formFile" accept="image/*">
-                                        <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-icon"></p>
+                                        <label class="form-label"><b>Description</b></label>
+                                        <textarea class="form-control " id="summernote" id="description" name="description" ></textarea>
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                            id="error-description"></p>
                                     </div>
-                                </div>
+                            </div>
                             </div>
                             <button type="submit" class="btn btn-primary submit mt-2">Save</button>
                         </form>
@@ -91,7 +93,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
                         //console.log(response);
                         if (response.success == true) {
                             //notify
-                            toastr.success("category Created successfully!");
+                            toastr.success("Page Created successfully!");
 
                             // Swal.fire({
                             //     position: 'top-end',
@@ -101,7 +103,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
                             //     timer: 1500
                             //     })
                             window.setTimeout(function() {
-                                window.location = "{{ url('/')}}" + "/admin/category";
+                                window.location = "{{ url('/')}}" + "/admin/cms";
                             }, 2000);
 
                         }
@@ -124,9 +126,24 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
                 event.stopImmediatePropagation();
                 return false;
             });
-
+            // $('#mysummernote').summernote({
+            //     height: 150
+            // });
+            $('textarea#summernote').summernote({
+                tabsize: 2,
+                height: 100,
+                toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'italic', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'hr']],
+                        ['help', ['help']]
+                ],
+            });
         });
 
     </script>
     @endpush
-
