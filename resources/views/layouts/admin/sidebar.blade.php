@@ -128,18 +128,24 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item {{Request::segment(2) == 'user' ? 'active' : ''  }}">
+            <li class="nav-item {{Request::segment(2) == 'products' ? 'active' : ''  }}">
+                <a class="nav-link " href="{{ route('admin.products') }}">
+                    <i class="fa fa-user menu-icon"></i>
+                    <span class="menu-title">Product Management</span>
+                </a>
+            </li>
+            <!-- <li class="nav-item {{Request::segment(2) == 'user' ? 'active' : ''  }}">
                 <a class="nav-link " href="{{ route('admin.user') }}">
                     <i class="fa fa-user menu-icon"></i>
                     <span class="menu-title">User Management</span>
                 </a>
-            </li>
-            <li class="nav-item {{Request::segment(2) == 'role' ? 'active' : ''  }}">
+            </li> -->
+            <!-- <li class="nav-item {{Request::segment(2) == 'role' ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('admin.role') }}">
                     <i class="fa fa-adjust menu-icon"></i>
                     <span class="menu-title">Role Management</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item {{Request::segment(2) == 'cms' ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('admin.cms') }}">
                     <i class="fa fa-info-circle menu-icon"></i>

@@ -82,6 +82,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['Admin']],
     Route::get('/cms', [App\Http\Controllers\Admin\CmsController::class, 'index'])->name('cms');
     Route::match(['get', 'post'], '/cms/create', [App\Http\Controllers\Admin\CmsController::class,'create'])->name('cms.create');
     Route::match(['get', 'post'], '/cms/edit/{id}', [App\Http\Controllers\Admin\CmsController::class, 'edit'])->name('cms.edit');
+
+    //products
+    Route::get('/products', [App\Http\Controllers\Admin\ProductsController::class, 'index'])->name('products');
+    Route::match(['get', 'post'], '/products/create', [App\Http\Controllers\Admin\ProductsController::class,'create'])->name('products.create');
+    Route::match(['get', 'post'], '/products/edit/{id}', [App\Http\Controllers\Admin\ProductsController::class, 'edit'])->name('products.edit');
 });
 
 // Route::get('{slug}', [App\Http\Controllers\CommonController::class, 'fetch']);
