@@ -82,7 +82,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">About</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="email" />
+                                            <textarea class="form-control" id="summernote" name="description_vishal" ></textarea>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
                                                     id="error-email"></p>
                                             </div>
@@ -92,7 +92,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Instruction</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="email" />
+                                            <textarea class="form-control " id="summernote1" name="description" ></textarea>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
                                                     id="error-email"></p>
                                             </div>
@@ -120,7 +120,56 @@
                                             </div>
                                         </div>
                                     </div>
+                                <div class="row g-4">
+
+                                    <div class="col-md-3 pt-2">
+                                        <div class="form-floating form-floating-outline">
+                                            <input type="text" id="batch_id" name="batch_id[]" class="form-control">
+                                            <label for="batch_id">Title<b class="text-danger">*</b></label>
+                                        </div>
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                            id="error-batch_id_0">
+                                        </p>
+
+                                    </div>
+                                    <div class="col-md-3 pt-2">
+                                        <div class="form-floating form-floating-outline">
+                                            <input type="text" id="batch_name" name="batch_name[]"
+                                                class="form-control">
+                                            <label for="batch_name">price<b class="text-danger">*</b></label>
+                                        </div>
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                            id="error-batch_name_0"></p>
+                                    </div>
+                                    <div class="col-md-2 pt-2">
+                                        <div class="form-floating form-floating-outline">
+                                            <input type="number" id="start_date" name="start_date[]"
+                                                class="form-control">
+                                            <label for="start_date">pack<b class="text-danger">*</b></label>
+                                        </div>
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                            id="error-start_date_0">
+                                        </p>
+
+                                    </div>
+                                    <div class="col-md-2 pt-2">
+                                        <div class="form-floating form-floating-outline">
+                                            <input type="file" id="end_date" name="end_date[]" class="form-control">
+                                            <label for="end_date">image<b class="text-danger">*</b></label>
+                                        </div>
+                                        <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                            id="error-end_date_0"></p>
+                                    </div>
+
+                                    <div class="col-md-2 pt-3">
+                                        <button type="button" class="btn btn-primary add-area-btn1" data-id="Aaddress"
+                                            id="add1"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                    <div class="col-md-12" id="mt12">
+                                    </div>
                                 </div>
+                                </div>
+
                                 <div class="card" style="background:white;">
                                     <div class="card-footer">
                                         <div class="row">
@@ -141,9 +190,60 @@
         {{-- <script src="{{asset('theme/plugins/select2/js/select2.full.min.js')}}"></script> --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
         <script>
-            $(document).ready(function() {
                 //on change country
+                $(document).ready(function() {
+                    var i = 0;
 
+                    $("#add1").click(function() {
+                        ++i;
+                        $("#mt12").append(`
+                    <div class="row g-4" id="row${i}">
+                        <div class="col-md-3 pt-2">
+                            <div class="form-floating form-floating-outline">
+                                <input type="text" class="form-control" name="batch_id[]">
+                                <label for="batch_id">Title<b class="text-danger">*</b></label>
+                            </div>
+                            <p style="margin-bottom: 2px;" class="text-danger error_container batch_id_${i}" id="error-batch_id_${i}"></p>
+                        </div>
+                        <div class="col-md-3 pt-2">
+                            <div class="form-floating form-floating-outline">
+                                <input type="text" class="form-control" name="batch_name[]">
+                                <label for="batch_name">Price<b class="text-danger">*</b></label>
+                            </div>
+                            <p style="margin-bottom: 2px;" class="text-danger error_container batch_name_${i}" id="error-batch_name_${i}"></p>
+                        </div>
+                        <div class="col-md-2 pt-2">
+                                                <div class="form-floating form-floating-outline">
+                                                    <input type="text" id="start_date" name="start_date[]" class="form-control">
+                                                    <label for="start_date">Pack<b class="text-danger">*</b></label>
+                                                </div>
+                                                <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                    id="error-start_date_0">
+                                                </p>
+
+                                            </div>
+                                            <div class="col-md-2 pt-2">
+                                                <div class="form-floating form-floating-outline">
+                                                    <input type="file" id="image" name="end_date[]"
+                                                        class="form-control">
+                                                    <label for="end_date">End Date<b class="text-danger">*</b></label>
+                                                </div>
+                                                <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                    id="error-end_date_0"></p>
+                                            </div>
+                        <div class="col-md-2 pt-2">
+                            <p style="margin-bottom: 2px;" class="text-danger error_container Answer_error"></p>
+                            <button type="button" name="remove" id="${i}" class="btn btn-danger btn_remove"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    `);
+                    });
+                    $(document).on('click', '.btn_remove', function() {
+                        var button_id = $(this).attr("id");
+                        $('#row' + button_id).remove();
+                    });
+                });
+        $(document).ready(function() {
                 const togglePassword = document.querySelector('#togglePassword');
                 const password = document.querySelector('#password');
 
@@ -252,5 +352,21 @@
                     return false;
                 });
             });
+
+            $('textarea#summernote').summernote({
+                tabsize: 2,
+                height: 100,
+                toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'italic', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'hr']],
+                        ['help', ['help']]
+                ],
+            });
+            
         </script>
     @endpush
