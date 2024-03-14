@@ -21,7 +21,7 @@ class ProductsController extends Controller
     {
         if($request->ajax())
         {
-            $games = DB::table('users')->where('status','<>',2)->orderBy('id','DESC')->get();
+            $games = DB::table('products')->where('status','<>',2)->orderBy('id','DESC')->get();
             $datatables = Datatables::of($games)
             ->editColumn('check', function ($row) {
                 return '<span class="form-check mb-0"><input type="checkbox" id="chk_sel_"><label class="form-check-label" for="chk_sel_"></label></span>';
@@ -101,12 +101,20 @@ class ProductsController extends Controller
         }
 
         $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone' => 'required',
-            'role' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'title' => 'required',
+            'price' => 'required',
+            'd_price' => 'required',
+            'gross_weight' => 'required',
+            'net_weight' => 'required',
+            'no_pcs' => 'required',
+            'about' => 'required',
+            'instruction' => 'required',
+            'image' => 'required',
+            'customize' => 'required',
+            'customize_title' => 'required',
+            'customize_price' => 'required',
+            'customize_pack' => 'required',
+            'customize_image' => 'required_if:customize,on',
         ];
 
         $validation = Validator::make($request->all(), $rules);
@@ -120,26 +128,74 @@ class ProductsController extends Controller
 
         }
 
-        $hashed_random_password = Hash::make($request->input('password'));
-
         DB::beginTransaction();
         try{
-            $name = trim(preg_replace('/^\s+|\s+$|\s+(?=\s)/', '', $request->input('first_name').' '.$request->input('last_name')));
+
+            if ($request->file('image')) {
+
+                $image = $request->file('image');
+                $date = date('YmdHis');
+                $no = str_shuffle('123456789023456789034567890456789905678906789078908909000987654321987654321876543217654321654321543214321321211');
+                $random_no = substr($no, 0, 2);
+                $final_image_name = $date . $random_no . '.' . $image->getClientOriginalExtension();
+
+                $destination_path = public_path('/uploads/product/');
+                if (!File::exists($destination_path)) {
+                    File::makeDirectory($destination_path, $mode = 0777, true, true);
+                }
+                $image->move($destination_path, $final_image_name);
+            }
 
             $data = [
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
-                'name' => $name,
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'password' => $hashed_random_password,
-                'role_id' => $request->input('role'),
-                'user_type' => 1,
+                'title' => $request->input('title'),
+                'price' => $request->input('price'),
+                'd_price' => $request->input('d_price'),
+                'gross_weight' => $request->input('gross_weight'),
+                'net_weight' => $request->input('net_weight'),
+                'no_pcs' => $request->input('no_pcs'),
+                'about' => $request->input('about'),
+                'instruction' => $request->input('instruction'),
+                'image' => $final_image_name,
+                'customize' => $request->input('customize'),
                 'status' => 1,
                 'created_at' => date('Y-m-d H:i:s')
             ];
+            $p_id = DB::table('products')->insertGetId($data);
 
-            DB::table('users')->insert($data);
+            if($request->input('customize') == 'on'){
+                $customize_titles = $request->customize_title;
+                $customize_images = $request->file('customize_image');
+                $customize_prices = $request->customize_price;
+                $customize_packs = $request->customize_pack;
+                
+                for ($i = 0; $i < count($customize_titles); $i++) {
+                    $final_image_name = null; // Initialize to null, in case there's no image for this iteration
+                
+                    if ($customize_images[$i]) {
+                        $image = $customize_images[$i];
+                        $date = date('YmdHis');
+                        $random_no = str_shuffle('1234567890');
+                        $random_no = substr($random_no, 0, 2);
+                        $final_image_name = $date . $random_no . '.' . $image->getClientOriginalExtension();
+                
+                        $destination_path = public_path('/uploads/c_product/');
+                        if (!File::exists($destination_path)) {
+                            File::makeDirectory($destination_path, $mode = 0777, true, true);
+                        }
+                        $image->move($destination_path, $final_image_name);
+                    }
+                
+                    $data1 = [
+                        'product_id' => $p_id,
+                        'customize_title' => $customize_titles[$i],
+                        'customize_price' => $customize_prices[$i],
+                        'customize_pack' => $customize_packs[$i],
+                        'customize_image' => $final_image_name, // Corrected from $final_image_name[$i]
+                    ];
+                    DB::table('customize_products')->insert($data1); // Using insert as we don't need to retrieve ID
+                }
+            }
+
 
             DB::commit();
             return response()->json([
@@ -159,10 +215,10 @@ class ProductsController extends Controller
 
         if($request->isMethod('get'))
         {
-            $role  = DB::table('roles')->where('status','1')->get();
-            $user  = DB::table('users')->where('id',$user_id)->first();
-
-            return view('admin.product.edit',compact('role','user'));
+            $product  = DB::table('products')->where('id',$user_id)->first();
+            $c_product  = DB::table('customize_products')->where('product_id',$user_id)->first();
+            dd($c_product);
+            return view('admin.product.edit',compact('product','c_product'));
         }
 
         $rules = [

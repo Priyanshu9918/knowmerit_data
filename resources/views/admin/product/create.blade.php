@@ -18,10 +18,10 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Title</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="first_name"
-                                                    name="first_name" />
+                                                <input type="text" class="form-control" id="title"
+                                                    name="title" />
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-first_name"></p>
+                                                    id="error-title"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -29,10 +29,10 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Price</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="last_name"
-                                                    name="last_name" />
+                                                <input type="text" class="form-control" id="price"
+                                                    name="price" />
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-last_name"></p>
+                                                    id="error-price"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -40,9 +40,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Discount Price</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="phone" id="phone" />
+                                                <input type="text" class="form-control" name="d_price" id="d_price" />
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-phone"></p>
+                                                    id="error-d_price"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -50,9 +50,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Gross Weight</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="email" />
+                                                <input type="text" class="form-control" name="gross_weight" />
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-email"></p>
+                                                    id="error-gross_weight"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -60,10 +60,9 @@
                                         <div class="form-group row" style="position: inherit;">
                                             <label class="col-sm-4 col-form-label">Net Weight</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text" name="password"
-                                                    autocomplete="current-password" id="password">
+                                                <input class="form-control" type="text" name="net_weight" id="net_weight">
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-password"></p>
+                                                    id="error-net_weight"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -71,10 +70,9 @@
                                         <div class="form-group row" style="position: inherit;">
                                             <label class="col-sm-4 col-form-label">No Pcs</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text" name="password"
-                                                    autocomplete="current-password" id="password">
+                                                <input class="form-control" type="text" name="no_pcs" id="no_pcs">
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-password"></p>
+                                                    id="error-no_pcs"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -82,9 +80,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">About</label>
                                             <div class="col-sm-10">
-                                            <textarea class="form-control" id="summernote" name="description_vishal" ></textarea>
+                                            <textarea class="form-control" id="summernote" name="about" ></textarea>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-email"></p>
+                                                    id="error-about"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -92,9 +90,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Instruction</label>
                                             <div class="col-sm-10">
-                                            <textarea class="form-control " id="summernote1" name="description" ></textarea>
+                                            <textarea class="form-control " id="summernote1" name="instruction" ></textarea>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-email"></p>
+                                                    id="error-instruction"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -102,9 +100,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Images</label>
                                             <div class="col-sm-8">
-                                                <input type="file" class="form-control" name="email" />
+                                                <input type="file" class="form-control" name="image" />
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-email"></p>
+                                                    id="error-image"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -113,52 +111,52 @@
                                             <label class="col-sm-4 col-form-label">Customize</label>
                                             <div class="col-sm-8">
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="customizeCheckbox" name="email">
+                                                    <input type="checkbox" class="form-check-input" id="customizeCheckbox" name="customize">
                                                     <label class="form-check-label" for="customizeCheckbox">Check to customize</label>
                                                 </div>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container" id="error-email"></p>
                                             </div>
                                         </div>
                                     </div>
-                                <div class="row g-4">
+                                <div class="row g-4 d-none" id="c_num">
 
                                     <div class="col-md-3 pt-2">
                                         <div class="form-floating form-floating-outline">
-                                            <input type="text" id="batch_id" name="batch_id[]" class="form-control">
-                                            <label for="batch_id">Title<b class="text-danger">*</b></label>
+                                            <input type="text" id="customize_title" name="customize_title[]" class="form-control">
+                                            <label for="customize_title">Title<b class="text-danger">*</b></label>
                                         </div>
                                         <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                            id="error-batch_id_0">
+                                            id="error-customize_title_0">
                                         </p>
 
                                     </div>
                                     <div class="col-md-3 pt-2">
                                         <div class="form-floating form-floating-outline">
-                                            <input type="text" id="batch_name" name="batch_name[]"
+                                            <input type="text" id="customize_price" name="customize_price[]"
                                                 class="form-control">
-                                            <label for="batch_name">price<b class="text-danger">*</b></label>
+                                            <label for="customize_price">price<b class="text-danger">*</b></label>
                                         </div>
                                         <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                            id="error-batch_name_0"></p>
+                                            id="error-customize_price_0"></p>
                                     </div>
                                     <div class="col-md-2 pt-2">
                                         <div class="form-floating form-floating-outline">
-                                            <input type="number" id="start_date" name="start_date[]"
+                                            <input type="number" id="customize_pack" name="customize_pack[]"
                                                 class="form-control">
-                                            <label for="start_date">pack<b class="text-danger">*</b></label>
+                                            <label for="customize_pack">pack<b class="text-danger">*</b></label>
                                         </div>
                                         <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                            id="error-start_date_0">
+                                            id="error-customize_pack_0">
                                         </p>
 
                                     </div>
                                     <div class="col-md-2 pt-2">
                                         <div class="form-floating form-floating-outline">
-                                            <input type="file" id="end_date" name="end_date[]" class="form-control">
-                                            <label for="end_date">image<b class="text-danger">*</b></label>
+                                            <input type="file" id="customize_image" name="customize_image[]" class="form-control">
+                                            <!-- <label for="customize_image">image<b class="text-danger">*</b></label> -->
                                         </div>
                                         <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                            id="error-end_date_0"></p>
+                                            id="error-customize_image_0"></p>
                                     </div>
 
                                     <div class="col-md-2 pt-3">
@@ -191,6 +189,14 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
         <script>
                 //on change country
+                $(document).on('click', '#customizeCheckbox', function(event) {
+                    var isChecked = $(this).prop('checked');
+                    if (isChecked) {
+                        $('#c_num').removeClass('d-none');
+                    } else {
+                        $('#c_num').addClass('d-none');
+                    }
+                });
                 $(document).ready(function() {
                     var i = 0;
 
@@ -200,37 +206,37 @@
                     <div class="row g-4" id="row${i}">
                         <div class="col-md-3 pt-2">
                             <div class="form-floating form-floating-outline">
-                                <input type="text" class="form-control" name="batch_id[]">
-                                <label for="batch_id">Title<b class="text-danger">*</b></label>
+                                <input type="text" class="form-control" name="customize_title[]">
+                                <label for="customize_title">Title<b class="text-danger">*</b></label>
                             </div>
-                            <p style="margin-bottom: 2px;" class="text-danger error_container batch_id_${i}" id="error-batch_id_${i}"></p>
+                            <p style="margin-bottom: 2px;" class="text-danger error_container customize_title_${i}" id="error-customize_title_${i}"></p>
                         </div>
                         <div class="col-md-3 pt-2">
                             <div class="form-floating form-floating-outline">
-                                <input type="text" class="form-control" name="batch_name[]">
-                                <label for="batch_name">Price<b class="text-danger">*</b></label>
+                                <input type="text" class="form-control" name="customize_price[]">
+                                <label for="customize_price">Price<b class="text-danger">*</b></label>
                             </div>
-                            <p style="margin-bottom: 2px;" class="text-danger error_container batch_name_${i}" id="error-batch_name_${i}"></p>
+                            <p style="margin-bottom: 2px;" class="text-danger error_container customize_price_${i}" id="error-customize_price_${i}"></p>
                         </div>
                         <div class="col-md-2 pt-2">
-                                                <div class="form-floating form-floating-outline">
-                                                    <input type="text" id="start_date" name="start_date[]" class="form-control">
-                                                    <label for="start_date">Pack<b class="text-danger">*</b></label>
-                                                </div>
-                                                <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-start_date_0">
-                                                </p>
+                            <div class="form-floating form-floating-outline">
+                                <input type="text" id="customize_pack" name="customize_pack[]" class="form-control">
+                                <label for="customize_pack">Pack<b class="text-danger">*</b></label>
+                            </div>
+                            <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                id="error-customize_pack_0">
+                            </p>
 
-                                            </div>
-                                            <div class="col-md-2 pt-2">
-                                                <div class="form-floating form-floating-outline">
-                                                    <input type="file" id="image" name="end_date[]"
-                                                        class="form-control">
-                                                    <label for="end_date">End Date<b class="text-danger">*</b></label>
-                                                </div>
-                                                <p style="margin-bottom: 2px;" class="text-danger error_container"
-                                                    id="error-end_date_0"></p>
-                                            </div>
+                        </div>
+                        <div class="col-md-2 pt-2">
+                            <div class="form-floating form-floating-outline">
+                                <input type="file" id="customize_image" name="customize_image[]"
+                                    class="form-control">
+                                <label for="customize_image">End Date<b class="text-danger">*</b></label>
+                            </div>
+                            <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                id="error-customize_image_0"></p>
+                        </div>
                         <div class="col-md-2 pt-2">
                             <p style="margin-bottom: 2px;" class="text-danger error_container Answer_error"></p>
                             <button type="button" name="remove" id="${i}" class="btn btn-danger btn_remove"><i class="fa fa-minus"></i></button>
@@ -243,53 +249,7 @@
                         $('#row' + button_id).remove();
                     });
                 });
-        $(document).ready(function() {
-                const togglePassword = document.querySelector('#togglePassword');
-                const password = document.querySelector('#password');
-
-                togglePassword.addEventListener('click', function(e) {
-                    // toggle the type attribute
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
-                    // toggle the eye slash icon
-                    // this.classList.toggle('fa-eye-slash');
-                    $(this).toggleClass('fa fa-eye fa-eye-slash');
-                });
-                $('#first_name, #last_name').on('keypress', function(e) {
-                    var $this = $(this);
-                    var regex = /^[A-Za-z ]+$/;
-                    var inputChar = String.fromCharCode(e.which);
-
-                    if (!regex.test(inputChar)) {
-                        e.preventDefault();
-                    }
-                });
-
-                $('#phone').on('keypress', function(e) {
-                    var $this = $(this);
-                    var regex = new RegExp("^[0-9\b]+$");
-                    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-                    // for 10 digit number only
-                    if ($this.val().length > 9) {
-                        e.preventDefault();
-                        return false;
-                    }
-                    if (e.charCode < 54 && e.charCode > 47) {
-                        if ($this.val().length == 0) {
-                            e.preventDefault();
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                    if (regex.test(str)) {
-                        return true;
-                    }
-                    e.preventDefault();
-                    return false;
-                });
-
-
+            $(document).ready(function() {
                 $(document).on('submit', 'form#createFrm', function(event) {
                     event.preventDefault();
                     //clearing the error msg
@@ -351,22 +311,37 @@
                     event.stopImmediatePropagation();
                     return false;
                 });
+
+                $('textarea#summernote').summernote({
+                    tabsize: 2,
+                    height: 100,
+                    toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'italic', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['height', ['height']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'hr']],
+                            ['help', ['help']]
+                    ],
+                });
+                $('textarea#summernote1').summernote({
+                    tabsize: 2,
+                    height: 100,
+                    toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'italic', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['height', ['height']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'hr']],
+                            ['help', ['help']]
+                    ],
+                });
             });
 
-            $('textarea#summernote').summernote({
-                tabsize: 2,
-                height: 100,
-                toolbar: [
-                        ['style', ['style']],
-                        ['font', ['bold', 'italic', 'underline', 'clear']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['height', ['height']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'picture', 'hr']],
-                        ['help', ['help']]
-                ],
-            });
-            
+          
         </script>
     @endpush

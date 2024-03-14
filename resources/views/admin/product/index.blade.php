@@ -56,7 +56,7 @@
                         //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
                         {data: 'check', name: 'check'},
 
-                        {data: 'name', name: 'name'},
+                        {data: 'title', name: 'title'},
 
                         {data: 'created_at', name: 'created_at'},
 
