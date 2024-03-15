@@ -80,7 +80,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">About</label>
                                             <div class="col-sm-10">
-                                            <textarea class="form-control" id="summernote" name="about" >{{$product->about ?? ''}}"</textarea>
+                                            <textarea class="form-control" id="summernote" name="about" >{{$product->about ?? ''}}</textarea>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
                                                     id="error-about"></p>
                                             </div>
@@ -90,7 +90,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Instruction</label>
                                             <div class="col-sm-10">
-                                            <textarea class="form-control " id="summernote1" name="instruction" >{{$product->instruction ?? ''}}"</textarea>
+                                            <textarea class="form-control " id="summernote1" name="instruction" >{{$product->instruction ?? ''}}</textarea>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
                                                     id="error-instruction"></p>
                                             </div>
@@ -118,14 +118,19 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 @if($product->customize == 'on')
-                                    @foreach ($c_product as $key => $c_products)
+                                @php
+                                    $customize_title = explode(',',$c_product->customize_title);
+                                    $customize_price = explode(',',$c_product->customize_price);
+                                    $customize_pack = explode(',',$c_product->customize_pack);
+                                    $customize_image = explode(',',$c_product->customize_image);
+                                @endphp
+                                    @foreach ($customize_title as $key => $customize_titles)
                                         <div class="row g-4" id="row{{ $key }}">
                                             <div class="col-md-3 pt-2">
                                                 <div class="form-floating form-floating-outline">
                                                     <input type="text" id="customize_title" name="customize_title[]"
-                                                        class="form-control" value="{{$c_products->customize_title ?? ''}}">
+                                                        class="form-control" value="{{$customize_title[$key] ?? ''}}">
                                                     <label for="customize_title">Title<b class="text-danger">*</b></label>
                                                 </div>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
@@ -136,17 +141,16 @@
                                             <div class="col-md-3 pt-2">
                                                 <div class="form-floating form-floating-outline">
                                                     <input type="text" id="customize_price" name="customize_price[]"
-                                                        class="form-control" value="{{$c_products->customize_price ?? ''}}">
+                                                        class="form-control" value="{{$customize_price[$key] ?? ''}}">
                                                     <label for="customize_price">Price<b class="text-danger">*</b></label>
                                                 </div>
                                                 <p style="margin-bottom: 2px;" class="text-danger error_container"
                                                     id="error-customize_price_{{ $key }}"></p>
                                             </div>
-
                                             <div class="col-md-2 pt-2">
                                                 <div class="form-floating form-floating-outline">
                                                     <input type="text" class="form-control" name="customize_pack[]"
-                                                        value="{{ $c_products->customize_pack ?? '' }}" placeholder="Start Date">
+                                                        value="{{ $customize_pack[$key] ?? '' }}" >
                                                     <label for="customize_pack">Pack<b class="text-danger">*</b></label>
                                                 </div>
                                                 <p style="margin-bottom: 2px;"
@@ -162,7 +166,6 @@
                                                     class="text-danger error_container customize_image_error"
                                                     id="error-customize_image_${key}"></p>
                                             </div>
-
                                             @if ($key == 0)
                                                 <div class="col-md-2 pt-3">
                                                     <button type="button" class="btn btn-primary add-area-btn1"
@@ -202,42 +205,54 @@
         https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
         "></script>
         <script>
+        $(document).ready(function() {
+            var i = {{ count($customize_title) - 1 }};
+
+            $("#add1").click(function() {
+                ++i;
+                $("#mt12").append(`
+                <div class="row g-4" id="row${i}">
+                    <div class="col-md-3 pt-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="text" class="form-control" name="customize_title[]" >
+                            <label for="customize_title">Title<b class="text-danger">*</b></label>
+                        </div>
+                        <p style="margin-bottom: 2px;" class="text-danger error_container customize_title_error" id="error-customize_title_${i}"></p>
+                    </div>
+                    <div class="col-md-3 pt-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="number" class="form-control" name="customize_price[]" >
+                            <label for="customize_price">Price<b class="text-danger">*</b></label>
+                        </div>
+                        <p style="margin-bottom: 2px;" class="text-danger error_container customize_price_error" id="error-customize_price_${i}"></p>
+                    </div>
+                    <div class="col-md-2 pt-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="number" class="form-control" name="customize_pack[]" >
+                            <label for="customize_pack">Pack<b class="text-danger">*</b></label>
+                        </div>
+                        <p style="margin-bottom: 2px;" class="text-danger error_container customize_pack_error" id="error-customize_pack_${i}"></p>
+                    </div>
+                    <div class="col-md-2 pt-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="file" class="form-control" name="customize_image[]" >
+                            <label for="customize_image">Image<b class="text-danger">*</b></label>
+                        </div>
+                        <p style="margin-bottom: 2px;" class="text-danger error_container customize_image_error" id="error-customize_image_${i}"></p>
+                    </div>
+                    <div class="col-md-2 pt-2">
+                        <button type="button" name="remove" id="${i}" class="btn btn-danger btn_remove"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+            `);
+            });
+            $(document).on('click', '.btn_remove', function() {
+                var button_id = $(this).attr("id");
+                $('#row' + button_id).remove();
+            });
+        });
+
             $(document).ready(function() {
-
-            $('#first_name, #last_name').on('keypress', function(e) {
-                var $this = $(this);
-                var regex = /^[A-Za-z ]+$/;
-                var inputChar = String.fromCharCode(e.which);
-
-                if (!regex.test(inputChar)) {
-                    e.preventDefault();
-                }
-            });
-
-            $('#phone').on('keypress', function(e) {
-                var $this = $(this);
-                var regex = new RegExp("^[0-9\b]+$");
-                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-                // for 10 digit number only
-                if ($this.val().length > 9) {
-                    e.preventDefault();
-                    return false;
-                }
-                if (e.charCode < 54 && e.charCode > 47) {
-                    if ($this.val().length == 0) {
-                        e.preventDefault();
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                if (regex.test(str)) {
-                    return true;
-                }
-                e.preventDefault();
-                return false;
-            });
-
                 $(document).on('submit', 'form#editFrm', function(event) {
                     event.preventDefault();
                     //clearing the error msg
@@ -308,7 +323,34 @@
                 });
             });
             $(document).ready(function() {
-                $('.summernote').summernote();
+                $('textarea#summernote').summernote({
+                    tabsize: 2,
+                    height: 100,
+                    toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'italic', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['height', ['height']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'hr']],
+                            ['help', ['help']]
+                    ],
+                });
+                $('textarea#summernote1').summernote({
+                    tabsize: 2,
+                    height: 100,
+                    toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'italic', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['height', ['height']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'hr']],
+                            ['help', ['help']]
+                    ],
+                });
             });
         </script>
     @endpush
