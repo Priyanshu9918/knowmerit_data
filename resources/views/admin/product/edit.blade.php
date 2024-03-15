@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Create Product</h4>
-                            <form action="{{ route('admin.products.create') }}" method="POST" id="createFrm"
+                            <form action="{{ route('admin.products.edit',['id'=>base64_encode($product->id)]) }}" method="POST" id="editFrm"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <p class="card-description">
@@ -106,6 +106,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if($product->image!=NULL && file_exists(public_path('uploads/product/'.$product->image)))
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <a href="{{asset('uploads/product/'.$product->image)}}" target="_blank">
+                                                    <img src="{{asset('uploads/product/'.$product->image)}}" width="100px" height="100px">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Customize</label>
@@ -119,13 +128,13 @@
                                         </div>
                                     </div>
                                 @if($product->customize == 'on')
-                                @php
+                                {{-- @php
                                     $customize_title = explode(',',$c_product->customize_title);
                                     $customize_price = explode(',',$c_product->customize_price);
                                     $customize_pack = explode(',',$c_product->customize_pack);
                                     $customize_image = explode(',',$c_product->customize_image);
                                 @endphp
-                                    @foreach ($customize_title as $key => $customize_titles)
+                                     @foreach ($customize_title as $key => $customize_titles)
                                         <div class="row g-4" id="row{{ $key }}">
                                             <div class="col-md-3 pt-2">
                                                 <div class="form-floating form-floating-outline">
@@ -179,10 +188,84 @@
                                                             class="fa fa-minus"></i></button>
                                                 </div>
                                             @endif
+                                            @if($customize_image[$key]!=NULL && file_exists(public_path('uploads/c_product/'.$customize_image[$key])))
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <a href="{{asset('uploads/c_product/'.$customize_image[$key])}}" target="_blank">
+                                                            <img src="{{asset('uploads/c_product/'.$customize_image[$key])}}" width="100px" height="100px">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach --}}
+                                        @foreach ($c_product as $key => $c_products)
+                                        <div class="row g-4" id="row{{ $key }}">
+                                            <div class="col-md-3 pt-2">
+                                                <div class="form-floating form-floating-outline">
+                                                    <input type="text" id="customize_title" name="customize_title[]"
+                                                        class="form-control" value="{{$c_products->customize_title ?? ''}}">
+                                                    <label for="customize_title">Title<b class="text-danger">*</b></label>
+                                                </div>
+                                                <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                    id="error-customize_title_{{ $key }}">
+                                                </p>
+
+                                            </div>
+                                            <div class="col-md-3 pt-2">
+                                                <div class="form-floating form-floating-outline">
+                                                    <input type="text" id="customize_price" name="customize_price[]"
+                                                        class="form-control" value="{{$c_products->customize_price ?? ''}}">
+                                                    <label for="customize_price">Price<b class="text-danger">*</b></label>
+                                                </div>
+                                                <p style="margin-bottom: 2px;" class="text-danger error_container"
+                                                    id="error-customize_price_{{ $key }}"></p>
+                                            </div>
+                                            <div class="col-md-2 pt-2">
+                                                <div class="form-floating form-floating-outline">
+                                                    <input type="text" class="form-control" name="customize_pack[]"
+                                                        value="{{ $c_products->customize_pack ?? '' }}" >
+                                                    <label for="customize_pack">Pack<b class="text-danger">*</b></label>
+                                                </div>
+                                                <p style="margin-bottom: 2px;"
+                                                    class="text-danger error_container customize_pack_error"
+                                                    id="error-customize_pack_${key}"></p>
+                                            </div>
+                                            <div class="col-md-2 pt-2">
+                                                <div class="form-floating form-floating-outline">
+                                                    <input type="file" class="form-control" name="customize_image[]">
+                                                    <label for="customize_image">Image<b class="text-danger">*</b></label>
+                                                </div>
+                                                <p style="margin-bottom: 2px;"
+                                                    class="text-danger error_container customize_image_error"
+                                                    id="error-customize_image_${key}"></p>
+                                            </div>
+                                            @if ($key == 0)
+                                                <div class="col-md-2 pt-3">
+                                                    <button type="button" class="btn btn-primary add-area-btn1"
+                                                        data-id="Aaddress" id="add1"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div>
+                                            @else
+                                                <div class="col-md-2 pt-3">
+                                                    <button type="button" name="remove" id="{{ $key }}"
+                                                        class="btn btn-danger btn_remove"><i
+                                                            class="fa fa-minus"></i></button>
+                                                </div>
+                                            @endif
+                                            @if($c_products->customize_image!=NULL && file_exists(public_path('uploads/c_product/'.$c_products->customize_image)))
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <a href="{{asset('uploads/c_product/'.$c_products->customize_image)}}" target="_blank">
+                                                            <img src="{{asset('uploads/c_product/'.$c_products->customize_image)}}" width="100px" height="100px">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         @endforeach
                                     @endif
-                                    <div class="col-md-12" id="mt12"></div>
                                 </div>
+                                <div class="col-md-12" id="mt12"></div>
+
                                 <div class="card" style="background:white;">
                                     <div class="card-footer">
                                         <div class="row">
@@ -201,15 +284,14 @@
     @endsection
     @push('script')
         {{-- <script src="{{ asset('theme/plugins/select2/js/select2.full.min.js') }}"></script> --}}
-        <script src="
-        https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
-        "></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
         <script>
         $(document).ready(function() {
-            var i = {{ count($customize_title) - 1 }};
+            var i = {{ count($c_product) - 1 }};
 
             $("#add1").click(function() {
                 ++i;
+                // alert(i);
                 $("#mt12").append(`
                 <div class="row g-4" id="row${i}">
                     <div class="col-md-3 pt-2">

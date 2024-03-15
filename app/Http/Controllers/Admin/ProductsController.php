@@ -162,40 +162,55 @@ class ProductsController extends Controller
             ];
             $p_id = DB::table('products')->insertGetId($data);
 
-            if($request->input('customize') == 'on'){
+            if($request->input('customize') == 'on') {
                 $customize_titles = $request->customize_title;
                 $customize_images = $request->file('customize_image');
                 $customize_prices = $request->customize_price;
                 $customize_packs = $request->customize_pack;
-                $images = []; // Changed variable name to avoid conflict with the image array
-                for ($i = 0; $i < count($customize_images); $i++) {
-                    $final_image_name = null; // Initialize to null, in case there's no image for this iteration
                 
+                // Initialize an array to hold all customization data
+                $customizationData = [];
+                
+                for ($i = 0; $i < count($customize_images); $i++) {
+                    $final_image_name = null;
+                    
                     if ($customize_images[$i]) {
-                        $image = $customize_images[$i]; // Changed variable name to avoid conflict with the array
+                        $image = $customize_images[$i];
                         $date = date('YmdHis');
                         $random_no = str_shuffle('1234567890');
                         $random_no = substr($random_no, 0, 2);
                         $final_image_name = $date . $random_no . '.' . $image->getClientOriginalExtension();
-                
+                        
                         $destination_path = public_path('/uploads/c_product/');
+                        
                         if (!File::exists($destination_path)) {
                             File::makeDirectory($destination_path, $mode = 0777, true, true);
                         }
+                        
                         $image->move($destination_path, $final_image_name);
                     }
-                    $images[] = $final_image_name; // Changed variable name to avoid conflict with the image array
+                    
+                    // Add each customization entry to the $customizationData array
+                    $customizationData[] = [
+                        'product_id' => $p_id,
+                        'customize_title' => $customize_titles[$i],
+                        'customize_price' => $customize_prices[$i],
+                        'customize_pack' => $customize_packs[$i],
+                        'customize_image' => $final_image_name,
+                    ];
                 }
-                $data1 = [
-                    'product_id' => $p_id,
-                    'customize_title' => implode(',',$customize_titles),
-                    'customize_price' => implode(',',$customize_prices), // Corrected from $customize_titles to $customize_prices
-                    'customize_pack' => implode(',',$customize_packs), // Corrected from $customize_titles to $customize_packs
-                    'customize_image' => implode(',',$images), // Corrected from $image to $images
-                ];
-                DB::table('customize_products')->insert($data1); // Using insert as we don't need to retrieve ID
+                
+                // Insert all customization data at once using insert method
+                DB::table('customize_products')->insert($customizationData);
             }
-
+            
+                // $data1 = [
+                //     'product_id' => $p_id,
+                //     'customize_title' => implode(',',$customize_titles),
+                //     'customize_price' => implode(',',$customize_prices), // Corrected from $customize_titles to $customize_prices
+                //     'customize_pack' => implode(',',$customize_packs), // Corrected from $customize_titles to $customize_packs
+                //     'customize_image' => implode(',',$images), // Corrected from $image to $images
+                // ];
 
             DB::commit();
             return response()->json([
@@ -216,11 +231,10 @@ class ProductsController extends Controller
         if($request->isMethod('get'))
         {
             $product  = DB::table('products')->where('id',$user_id)->first();
-            $c_product  = DB::table('customize_products')->where('product_id',$user_id)->first();
+            $c_product  = DB::table('customize_products')->where('product_id',$user_id)->get();
 
             return view('admin.product.edit',compact('product','c_product'));
         }
-
         $rules = [
             'title' => 'required',
             'price' => 'required',
@@ -230,12 +244,10 @@ class ProductsController extends Controller
             'no_pcs' => 'required',
             'about' => 'required',
             'instruction' => 'required',
-            'image' => 'required',
             'customize' => 'required',
             'customize_title' => 'required',
             'customize_price' => 'required',
             'customize_pack' => 'required',
-            'customize_image' => 'required_if:customize,on',
         ];
 
         $validation = Validator::make($request->all(), $rules);
@@ -287,38 +299,49 @@ class ProductsController extends Controller
             ];
             DB::table('products')->where('id',$user_id)->update($data);
 
-            if($imagesss->customize == 'on'){
+            $c_imagesss = DB::table('products')->where('id',$user_id)->first();
+            $img = explode(',',$c_imagesss->image);
+            
+            if($request->input('customize') == 'on') {
                 $customize_titles = $request->customize_title;
                 $customize_images = $request->file('customize_image');
                 $customize_prices = $request->customize_price;
                 $customize_packs = $request->customize_pack;
-                $images = []; // Changed variable name to avoid conflict with the image array
-                for ($i = 0; $i < count($customize_images); $i++) {
-                    $final_image_name = null; // Initialize to null, in case there's no image for this iteration
                 
+                // Initialize an array to hold all customization data
+                $customizationData = [];
+                
+                for ($i = 0; $i < count($customize_images); $i++) {
+                    $final_image_name = null;
+                    
                     if ($customize_images[$i]) {
-                        $image = $customize_images[$i]; // Changed variable name to avoid conflict with the array
+                        $image = $customize_images[$i];
                         $date = date('YmdHis');
                         $random_no = str_shuffle('1234567890');
                         $random_no = substr($random_no, 0, 2);
                         $final_image_name = $date . $random_no . '.' . $image->getClientOriginalExtension();
-                
+                        
                         $destination_path = public_path('/uploads/c_product/');
+                        
                         if (!File::exists($destination_path)) {
                             File::makeDirectory($destination_path, $mode = 0777, true, true);
                         }
+                        
                         $image->move($destination_path, $final_image_name);
                     }
-                    $images[] = $final_image_name; // Changed variable name to avoid conflict with the image array
+                    
+                    // Add each customization entry to the $customizationData array
+                    $customizationData[] = [
+                        'product_id' => $p_id,
+                        'customize_title' => $customize_titles[$i],
+                        'customize_price' => $customize_prices[$i],
+                        'customize_pack' => $customize_packs[$i],
+                        'customize_image' => $final_image_name,
+                    ];
                 }
-                $data1 = [
-                    'product_id' => $p_id,
-                    'customize_title' => implode(',',$customize_titles),
-                    'customize_price' => implode(',',$customize_prices), // Corrected from $customize_titles to $customize_prices
-                    'customize_pack' => implode(',',$customize_packs), // Corrected from $customize_titles to $customize_packs
-                    'customize_image' => implode(',',$images), // Corrected from $image to $images
-                ];
-                DB::table('customize_products')->where('product_id',$user_id)->update($data1); // Using insert as we don't need to retrieve ID
+                
+                // Insert all customization data at once using insert method
+                DB::table('customize_products')->insert($customizationData);
             }
         }
         catch (\Exception $e) {
