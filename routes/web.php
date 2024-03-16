@@ -87,6 +87,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['Admin']],
     Route::get('/products', [App\Http\Controllers\Admin\ProductsController::class, 'index'])->name('products');
     Route::match(['get', 'post'], '/products/create', [App\Http\Controllers\Admin\ProductsController::class,'create'])->name('products.create');
     Route::match(['get', 'post'], '/products/edit/{id}', [App\Http\Controllers\Admin\ProductsController::class, 'edit'])->name('products.edit');
+    Route::match(['get','post'],'/products/image-gallery/{id}',[App\Http\Controllers\Admin\ProductsController::class, 'productGallery'])->name('products.image-gallery');
+
+    Route::post('/products/remove/image',[App\Http\Controllers\Admin\ProductsController::class, 'removeImage'])->name('products.remove.image');
+
 });
 
 // Route::get('{slug}', [App\Http\Controllers\CommonController::class, 'fetch']);

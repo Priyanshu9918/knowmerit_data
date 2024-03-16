@@ -73,11 +73,19 @@ class ProductsController extends Controller
                 <i class="fas fa-trash text-danger"></i>
             </a>';
 
+                $image_url = url('/admin/products/image-gallery', ['id' => base64_encode($row->id)]);
+
+                    $action_4 = '<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"
+                            data-bs-toggle="tooltip" data-placement="top" title=""
+                            data-bs-original-title="Product Image" href="' . $image_url . '">
+                            <i class="fa-solid fa-image"></i>
+                        </a>';
                 $action = '<div class="d-flex align-items-center">
                                 <div class="d-flex">
                                 '.$action_1.'
                                     '.$action_2.'
                                     '.$action_3.'
+                                    '.$action_4.'
                                 </div>
                             </div>';
                 return $action;
@@ -345,6 +353,110 @@ class ProductsController extends Controller
             }
         }
         catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+            return $e;
+        }
+    }
+    public function productGallery(Request $request)
+    {
+
+        $product_id = base64_decode($request->id);
+
+        if ($request->isMethod('get')) {
+            $product = DB::table('products')->where('id', $product_id)->first();
+
+            $productImage = DB::table('product_images')->where('product_id', $product_id)->get();
+
+            return view('admin.product.image-gallery', compact('product', 'productImage'));
+        }
+
+        $rules = [
+            'image' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+        $allowedextension = ['jpg', 'jpeg', 'png', 'svg', 'JPG', 'JPEG'];
+        if ($request->hasFile('image') && $request->file('image') != "") {
+            $filePath = public_path('/uploads/product/');
+            $files = $request->file('image');
+            foreach ($files as $file) {
+                $extension = $file->getClientOriginalExtension();
+
+                $check = in_array($extension, $allowedextension);
+
+                if (!$check) {
+                    return response()->json([
+                        'success' => false,
+                        'errors' => ['image' => 'Only jpg,jpeg,png,svg are allowed !'],
+                        'error_type' => 'validation'
+                    ]);
+                }
+            }
+            foreach ($files as $file) {
+                $image = $file;
+                $date = date('YmdHis');
+                $no = str_shuffle('123456789023456789034567890456789905678906789078908909000987654321987654321876543217654321654321543214321321211');
+                $random_no = substr($no, 0, 2);
+                $final_image_name = $date . $random_no . '.' . $image->getClientOriginalExtension();
+                $destination_path = public_path('/uploads/product/');
+                if (!File::exists($destination_path)) {
+                    File::makeDirectory($destination_path, 0777, true, true);
+                }
+
+                DB::table('product_images')->insert([
+                    'product_id' => $product_id,
+                    'image' => $final_image_name,
+                    'status' => 1,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
+
+                $image->move($destination_path, $final_image_name);
+            }
+
+            DB::commit();
+        }
+
+        return response()->json([
+            'success' => true,
+            'custom'  => 'yes',
+            'errors'  => []
+        ]);
+    }
+
+    public function removeImage(Request $request)
+    {
+        $id =  base64_decode($request->input('id'));
+
+        DB::beginTransaction();
+        try {
+
+            $path = public_path('uploads/product');
+
+            $item = DB::table('product_images')->where('id', $id)->first();
+
+            if ($item != NULL) {
+                if (File::exists($path . $item->image)) {
+                    File::delete($path . $item->image);
+                }
+            }
+
+            DB::table('product_images')->where('id', $id)->delete();
+
+            DB::commit();
+            // Do something when it fails
+            return response()->json([
+                'fail' => false,
+                'message' => 'File removed!'
+            ]);
+        } catch (\Exception $e) {
             DB::rollback();
             // something went wrong
             return $e;
