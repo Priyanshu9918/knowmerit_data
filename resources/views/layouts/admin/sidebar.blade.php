@@ -146,18 +146,24 @@
                     <span class="menu-title">Role Management</span>
                 </a>
             </li> -->
+            <li class="nav-item {{Request::segment(2) == 'coupons' ? 'active' : ''  }}">
+                <a class="nav-link" href="{{ route('admin.coupons') }}">
+                    <i class="fa fa-adjust menu-icon"></i>
+                    <span class="menu-title">Coupon Management</span>
+                </a>
+            </li>
             <li class="nav-item {{Request::segment(2) == 'cms' ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('admin.cms') }}">
                     <i class="fa fa-info-circle menu-icon"></i>
                     <span class="menu-title">CMS Manage</span>
                 </a>
             </li>
-            <!-- <li class="nav-item {{Request::segment(2) == 'manage-page' ? 'active' : ''  }}">
-                <a class="nav-link" href="{{ route('admin.manage-page') }}">
+            <li class="nav-item {{Request::segment(2) == 'faq' ? 'active' : ''  }}">
+                <a class="nav-link" href="{{ route('admin.faq') }}">
                     <i class="fa fa-info-circle menu-icon"></i>
-                    <span class="menu-title">Page Manage</span>
+                    <span class="menu-title">Faq's</span>
                 </a>
-            </li> -->
+            </li>
     </ul>
     @endif
 </nav>

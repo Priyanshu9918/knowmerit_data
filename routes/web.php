@@ -91,6 +91,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['Admin']],
 
     Route::post('/products/remove/image',[App\Http\Controllers\Admin\ProductsController::class, 'removeImage'])->name('products.remove.image');
 
+    ///faq//
+    Route::get('/faq', [App\Http\Controllers\Admin\FaqController::class, 'index'])->name('faq');
+    Route::match(['get', 'post'], '/faq/create', [App\Http\Controllers\Admin\FaqController::class, 'create'])->name('faq.create');
+    Route::match(['get', 'post'], '/faq/edit/{id}', [App\Http\Controllers\Admin\FaqController::class, 'edit'])->name('faq.edit');
+
+    // Coupon Management
+
+    Route::get('/coupons',[App\Http\Controllers\Admin\CouponController::class, 'index'])->name('coupons');
+
+    Route::match(['get','post'],'/coupons/create',[App\Http\Controllers\Admin\CouponController::class, 'create'])->name('coupons.create');
+
+    Route::match(['get','post'],'/coupons/edit/{id}',[App\Http\Controllers\Admin\CouponController::class, 'edit'])->name('coupons.edit');
+
 });
 
 // Route::get('{slug}', [App\Http\Controllers\CommonController::class, 'fetch']);
