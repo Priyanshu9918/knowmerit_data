@@ -128,6 +128,12 @@
                     </a>
                 </div>
             </li>
+            <li class="nav-item {{Request::segment(2) == 'customer' ? 'active' : ''  }}">
+                <a class="nav-link" href="{{ route('admin.customer') }}">
+                    <i class="fa fa-info-circle menu-icon"></i>
+                    <span class="menu-title">Customer Manage</span>
+                </a>
+            </li>
             <li class="nav-item {{Request::segment(2) == 'products' ? 'active' : ''  }}">
                 <a class="nav-link " href="{{ route('admin.products') }}">
                     <i class="fa fa-user menu-icon"></i>

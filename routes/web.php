@@ -104,6 +104,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['Admin']],
 
     Route::match(['get','post'],'/coupons/edit/{id}',[App\Http\Controllers\Admin\CouponController::class, 'edit'])->name('coupons.edit');
 
+    // Customer
+
+    Route::get('/customer',[App\Http\Controllers\Admin\CustomerController::class, 'index'])->name('customer');
+
+    Route::match(['get','post'],'/customer/create',[App\Http\Controllers\Admin\CustomerController::class, 'create'])->name('customer.create');
+
+    Route::match(['get','post'],'/customer/edit/{id}',[App\Http\Controllers\Admin\CustomerController::class, 'edit'])->name('customer.edit');
+
 });
 
 // Route::get('{slug}', [App\Http\Controllers\CommonController::class, 'fetch']);
